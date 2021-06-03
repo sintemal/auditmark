@@ -18,6 +18,8 @@ Unmark workspace is only accesible via `Ctrl + Shift + P`.
 
 ![Showcase](https://github.com/sintemal/auditmark/blob/main/images/AuditMark.png)
 
+The current version, does not yet support file changes! The marked areas are only stored in form of line numbers!
+
 ## Keybindings
 
 * `Ctrl + Alt + U`: If there is a selection, the selection gets unmarked. Otherwise the file gets unmarked
