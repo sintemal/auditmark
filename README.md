@@ -16,7 +16,7 @@ The first four are accessible via the right click menu.
 Unmark workspace is only accesible via `Ctrl + Shift + P`.
 
 
-![Showcase](images/AuditMark.png)
+![Showcase](https://github.com/sintemal/auditmark/blob/main/images/AuditMark.png)
 
 ## Keybindings
 

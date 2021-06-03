@@ -4,7 +4,7 @@
   "description": "A tool to mark selected pieces of code",
   "publisher": "sintemal",
   "version": "0.0.1",
-  "icon": "https://i.ibb.co/k2m1HKZ/pencil-2998243-1280.png",
+  "icon": "https://github.com/sintemal/auditmark/blob/main/images/icon.png",
   "engines": {
     "vscode": "^1.56.0"
   },
