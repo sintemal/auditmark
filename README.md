@@ -16,7 +16,7 @@ The first four are accessible via the right click menu.
 Unmark workspace is only accesible via `Ctrl + Shift + P`.
 
 
-![Showcase](https://github.com/sintemal/auditmark/blob/main/images/AuditMark.png)
+![Showcase](https://github.com/sintemal/auditmark/blob/main/images/AuditMark.png?raw=true)
 
 The current version, does not yet support file changes! The marked areas are only stored in form of line numbers!
 
