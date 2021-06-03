@@ -5,6 +5,10 @@
   "publisher": "sintemal",
   "version": "0.0.1",
   "icon": "https://github.com/sintemal/auditmark/blob/main/images/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sintemal/auditmark"
+  },
   "engines": {
     "vscode": "^1.56.0"
   },
