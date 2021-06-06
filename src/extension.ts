@@ -8,6 +8,8 @@ const decorationType = vscode.window.createTextEditorDecorationType({
 	backgroundColor: 'rgba(0,255,0,0.1)',
 	opacity: '1',
 	rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
+	overviewRulerColor: 'rgba(0,255,0,0.1)',
+	overviewRulerLane: vscode.OverviewRulerLane.Center,
 });
 
 //Stores all the marks. Global, so we can store it 
