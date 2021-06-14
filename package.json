@@ -3,7 +3,7 @@
   "displayName": "AuditMark",
   "description": "A tool to mark selected pieces of code",
   "publisher": "sintemal",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "icon": "images/icon.png",
   "repository": {
     "type": "git",

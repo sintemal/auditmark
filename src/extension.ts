@@ -31,7 +31,7 @@ export async function activate(context: vscode.ExtensionContext) {
 		let marksPath = vscode.Uri.joinPath(path, "marks.json");
 		let workspaceEdit = new vscode.WorkspaceEdit();
 		workspaceEdit.createFile(marksPath, { ignoreIfExists: true });
-		vscode.workspace.applyEdit(workspaceEdit);
+		await vscode.workspace.applyEdit(workspaceEdit);
 
 		let array = await vscode.workspace.fs.readFile(marksPath);
 		try {
