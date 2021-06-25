@@ -2,7 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import { TextDecoder } from 'util';
 import * as vscode from 'vscode';
-let fs = require("fs");
+import * as fs from 'fs';
 
 const decorationType = vscode.window.createTextEditorDecorationType({
 	backgroundColor: 'rgba(0,255,0,0.1)',
@@ -187,6 +187,24 @@ export async function activate(context: vscode.ExtensionContext) {
 		}
 	}
 
+	async function saveAndUpdateMarks(){
+		if (workspaceStoragePath !== undefined) {
+			updateDecorations();
+			try {
+				let marksPath = vscode.Uri.joinPath(workspaceStoragePath, "marks.json");
+				let marksWithSetArray: { [filename: string]: { array: { start: number, end: number }[] } } = {};
+				for (let mark in marksDict) {
+					marksWithSetArray[mark] = { array: [...marksDict[mark].set] };
+				}
+				let marksJson = JSON.stringify(marksWithSetArray);
+	
+				fs.writeFile(marksPath.fsPath, marksJson, () => {});
+			} catch (e) {
+				console.error(e);
+			}
+		}
+	}
+
 	let mark = vscode.commands.registerCommand('auditmark.mark', async () => {
 
 		if (notInWorkspace) {
@@ -207,11 +225,11 @@ export async function activate(context: vscode.ExtensionContext) {
 				let newRange = { start: Math.min(selection.active.line, selection.anchor.line), end: Math.max(selection.active.line, selection.anchor.line) };
 				addMark(newRange, realtiveFilePath);
 			}
-			updateDecorations();
+			await saveAndUpdateMarks();
 		}
 	});
 
-	let unmark = vscode.commands.registerCommand('auditmark.unmark', () => {
+	let unmark = vscode.commands.registerCommand('auditmark.unmark', async () => {
 
 		if (notInWorkspace) {
 			vscode.window.showErrorMessage("Please open the file in a workspace!");
@@ -230,7 +248,7 @@ export async function activate(context: vscode.ExtensionContext) {
 				removeMark(removeRange, realtiveFilePath);
 
 			}
-			updateDecorations();
+			await saveAndUpdateMarks();
 		}
 	});
 
@@ -249,11 +267,11 @@ export async function activate(context: vscode.ExtensionContext) {
 				marksDict[realtiveFilePath] = { set: new Set() };
 			}
 			addMark({ start: 0, end: markedFile.lineCount - 1 }, realtiveFilePath);
-			updateDecorations();
+			await saveAndUpdateMarks();
 		}
 	});
 
-	let unmarkFile = vscode.commands.registerCommand('auditmark.unmarkfile', () => {
+	let unmarkFile = vscode.commands.registerCommand('auditmark.unmarkfile', async () => {
 
 		if (notInWorkspace) {
 			vscode.window.showErrorMessage("Please open the file in a workspace!");
@@ -267,17 +285,17 @@ export async function activate(context: vscode.ExtensionContext) {
 				return;
 			}
 			marksDict[realtiveFilePath] = { set: new Set() };
-			updateDecorations();
+			await saveAndUpdateMarks();
 		}
 	});
 
-	let unmarkWorkspace = vscode.commands.registerCommand('auditmark.unmarkworkspace', () => {
+	let unmarkWorkspace = vscode.commands.registerCommand('auditmark.unmarkworkspace', async () => {
 
 		if (notInWorkspace) {
 			vscode.window.showErrorMessage("Please open the file in a workspace!");
 		} else {
 			marksDict = {};
-			updateDecorations();
+			await saveAndUpdateMarks();
 		}
 	});
 
@@ -302,7 +320,7 @@ export async function deactivate() {
 			}
 			let marksJson = JSON.stringify(marksWithSetArray);
 
-			fs.writeFileSync(marksPath.fsPath, marksJson);
+			fs.writeFile(marksPath.fsPath, marksJson, () => {});
 			//await vscode.workspace.fs.writeFile(vscode.Uri.file(marksPath.path), new TextEncoder().encode(marks_json));
 		} catch (e) {
 			console.error(e);
